@@ -23,7 +23,7 @@ public class RadioTest {
     public void shouldSetRadioStationOnTheUpperLimit() {
         Radio rad = new Radio();
         rad.setRadioStationNumber(10);
-        int expected = 10;
+        int expected = 0;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -86,9 +86,9 @@ public class RadioTest {
     @Test
     public void shouldSwitchRadioStationAboveTheLimitViaTheNextButton() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(9);
+        rad.setRadioStationNumber(8);
         rad.next();
-        int expected = 10;
+        int expected = 9;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -96,7 +96,7 @@ public class RadioTest {
     @Test
     public void shouldSwitchTheRadioStationToTheLastOneInTheBorderViaTheNextButton() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(10);
+        rad.setRadioStationNumber(9);
         rad.next();
         int expected = 0;
         int actual = rad.getRadioStationNumber();
@@ -129,7 +129,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setRadioStationNumber(0);
         rad.prev();
-        int expected = 10;
+        int expected = 9;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -137,9 +137,9 @@ public class RadioTest {
     @Test
     public void shouldSwitchingRadioStationAboveTheLimitViaThePrevButton() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(10);
+        rad.setRadioStationNumber(9);
         rad.prev();
-        int expected = 9;
+        int expected = 8;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -297,7 +297,7 @@ public class RadioTest {
     public void shouldSetMaxRadioStation() {
         Radio rad = new Radio(35);
         rad.setRadioStationNumber(35);
-        int expected = 35;
+        int expected = 0;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -307,6 +307,34 @@ public class RadioTest {
         Radio rad = new Radio(35);
         rad.setRadioStationNumber(36);
         int expected = 0;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetBelowTheBorderRadioStation() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(33);
+        int expected = 33;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSwitchingRadioStationViaTheNextButtonWithStationNoDefault() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(18);
+        rad.next();
+        int expected = 19;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldSwitchRadioStationViaThePrevButtonWithStationNoDefault() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(22);
+        rad.prev();
+        int expected = 21;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }

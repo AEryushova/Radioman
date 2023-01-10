@@ -22,7 +22,9 @@ public class Radio {
     }
 
     public void setRadioStationNumber(int newRadioStationNumber) {
-        if (newRadioStationNumber > amountRadioStation) {
+        int lastStation = amountRadioStation - 1;
+        ;
+        if (newRadioStationNumber > lastStation) {
             return;
         }
         if (newRadioStationNumber <= 0) {
@@ -33,7 +35,8 @@ public class Radio {
 
 
     public void next() {
-        if (radioStationNumber >= amountRadioStation) {
+        int lastStation = amountRadioStation - 1;
+        if (radioStationNumber >= lastStation) {
             radioStationNumber = 0;
         } else {
             radioStationNumber = radioStationNumber + 1;
@@ -41,8 +44,9 @@ public class Radio {
     }
 
     public void prev() {
+        int lastStation = amountRadioStation - 1;
         if (radioStationNumber <= 0) {
-            radioStationNumber = amountRadioStation;
+            radioStationNumber = lastStation;
         } else {
             radioStationNumber = radioStationNumber - 1;
         }
