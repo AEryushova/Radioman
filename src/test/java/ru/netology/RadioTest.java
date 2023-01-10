@@ -5,6 +5,12 @@ import org.junit.jupiter.api.Test;
 
 public class RadioTest {
     @Test
+    public void shouldSetAmountRadioStationDefault() {
+        Radio rad = new Radio();
+        Assertions.assertEquals(10, rad.getAmountRadioStation());
+    }
+
+    @Test
     public void shouldSetRadioStation() {
         Radio rad = new Radio();
         rad.setRadioStationNumber(4);
@@ -16,8 +22,8 @@ public class RadioTest {
     @Test
     public void shouldSetRadioStationOnTheUpperLimit() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(9);
-        int expected = 9;
+        rad.setRadioStationNumber(10);
+        int expected = 0;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -34,8 +40,8 @@ public class RadioTest {
     @Test
     public void shouldSetRadioStationWithinTheUpperBound() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(8);
-        int expected = 8;
+        rad.setRadioStationNumber(9);
+        int expected = 9;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -52,7 +58,7 @@ public class RadioTest {
     @Test
     public void shouldSetRadioStationAboveTheLimit() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(10);
+        rad.setRadioStationNumber(11);
         int expected = 0;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
@@ -80,9 +86,9 @@ public class RadioTest {
     @Test
     public void shouldSwitchRadioStationAboveTheLimitViaTheNextButton() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(9);
+        rad.setRadioStationNumber(8);
         rad.next();
-        int expected = 0;
+        int expected = 9;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -90,9 +96,9 @@ public class RadioTest {
     @Test
     public void shouldSwitchTheRadioStationToTheLastOneInTheBorderViaTheNextButton() {
         Radio rad = new Radio();
-        rad.setRadioStationNumber(8);
+        rad.setRadioStationNumber(9);
         rad.next();
-        int expected = 9;
+        int expected = 0;
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -147,14 +153,43 @@ public class RadioTest {
         int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
+
     @Test
-    public void shouldSetToVolumeAboveTheLimit() {
+    public void shouldSetToVolume() {
         Radio rad = new Radio();
-        rad.setSoundVolume(11);
+        rad.setSoundVolume(57);
+        int expected = 57;
+        int actual = rad.getSoundVolume();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetToVolumeTheTopLimit() {
+        Radio rad = new Radio();
+        rad.setSoundVolume(100);
+        int expected = 100;
+        int actual = rad.getSoundVolume();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetToVolumeTheBottomLimit() {
+        Radio rad = new Radio();
+        rad.setSoundVolume(0);
         int expected = 0;
         int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldSetToVolumeAboveTheLimit() {
+        Radio rad = new Radio();
+        rad.setSoundVolume(101);
+        int expected = 0;
+        int actual = rad.getSoundVolume();
+        Assertions.assertEquals(expected, actual);
+    }
+
     @Test
     public void shouldSetToVolumeBelowTheLimit() {
         Radio rad = new Radio();
@@ -168,8 +203,8 @@ public class RadioTest {
     public void shouldSetToMaxVolume() {
         Radio rad = new Radio();
         rad.setToMaxSoundVolume();
-        int expected = 10;
-        int actual = rad.soundVolume;
+        int expected = 100;
+        int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
 
@@ -178,7 +213,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setToMinSoundVolume();
         int expected = 0;
-        int actual = rad.soundVolume;
+        int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
 
@@ -188,7 +223,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setToMaxSoundVolume();
         rad.volumeUp();
-        int expected = 10;
+        int expected = 100;
         int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
@@ -206,9 +241,9 @@ public class RadioTest {
     @Test
     public void shouldTurnUpTheVolumeToMaximum() {
         Radio rad = new Radio();
-        rad.setSoundVolume(9);
+        rad.setSoundVolume(99);
         rad.volumeUp();
-        int expected = 10;
+        int expected = 100;
         int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
@@ -218,7 +253,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setToMaxSoundVolume();
         rad.volumeDown();
-        int expected = 9;
+        int expected = 99;
         int actual = rad.getSoundVolume();
         Assertions.assertEquals(expected, actual);
     }
@@ -240,6 +275,67 @@ public class RadioTest {
         rad.volumeDown();
         int expected = 0;
         int actual = rad.getSoundVolume();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetAmountRadioStation() {
+        Radio rad = new Radio(35);
+        Assertions.assertEquals(35, rad.getAmountRadioStation());
+    }
+
+    @Test
+    public void shouldSetBorderMaxRadioStation() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(34);
+        int expected = 34;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetMaxRadioStation() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(35);
+        int expected = 0;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetAboveTheLimitRadioStation() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(36);
+        int expected = 0;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetBelowTheBorderRadioStation() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(33);
+        int expected = 33;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSwitchingRadioStationViaTheNextButtonWithStationNoDefault() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(18);
+        rad.next();
+        int expected = 19;
+        int actual = rad.getRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+    @Test
+    public void shouldSwitchRadioStationViaThePrevButtonWithStationNoDefault() {
+        Radio rad = new Radio(35);
+        rad.setRadioStationNumber(22);
+        rad.prev();
+        int expected = 21;
+        int actual = rad.getRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
 

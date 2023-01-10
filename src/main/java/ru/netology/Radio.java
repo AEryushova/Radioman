@@ -1,18 +1,33 @@
 package ru.netology;
 
 public class Radio {
-    int radioStationNumber;
-    int soundVolume;
+    private int radioStationNumber;
+    private int soundVolume;
+    private int amountRadioStation;
+
+    public Radio(int amountRadioStation) {
+        this.amountRadioStation = amountRadioStation;
+    }
+
+    public Radio() {
+        amountRadioStation = 10;
+    }
+
+    public int getAmountRadioStation() {
+        return amountRadioStation;
+    }
 
     public int getRadioStationNumber() {
         return radioStationNumber;
     }
 
     public void setRadioStationNumber(int newRadioStationNumber) {
-        if (newRadioStationNumber > 9) {
+        int lastStation = amountRadioStation - 1;
+        ;
+        if (newRadioStationNumber > lastStation) {
             return;
         }
-        if (newRadioStationNumber < 0) {
+        if (newRadioStationNumber <= 0) {
             return;
         }
         radioStationNumber = newRadioStationNumber;
@@ -20,7 +35,8 @@ public class Radio {
 
 
     public void next() {
-        if (radioStationNumber >= 9) {
+        int lastStation = amountRadioStation - 1;
+        if (radioStationNumber >= lastStation) {
             radioStationNumber = 0;
         } else {
             radioStationNumber = radioStationNumber + 1;
@@ -28,8 +44,9 @@ public class Radio {
     }
 
     public void prev() {
+        int lastStation = amountRadioStation - 1;
         if (radioStationNumber <= 0) {
-            radioStationNumber = 9;
+            radioStationNumber = lastStation;
         } else {
             radioStationNumber = radioStationNumber - 1;
         }
@@ -40,7 +57,7 @@ public class Radio {
     }
 
     public void setSoundVolume(int newSoundVolume) {
-        if (newSoundVolume > 10) {
+        if (newSoundVolume > 100) {
             return;
         }
         if (newSoundVolume < 0) {
@@ -50,7 +67,7 @@ public class Radio {
     }
 
     public void setToMaxSoundVolume() {
-        soundVolume = 10;
+        soundVolume = 100;
     }
 
     public void setToMinSoundVolume() {
@@ -58,7 +75,7 @@ public class Radio {
     }
 
     public void volumeUp() {
-        if (soundVolume < 10) {
+        if (soundVolume < 100) {
             soundVolume = soundVolume + 1;
         } else {
             setToMaxSoundVolume();
